@@ -23,6 +23,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
       - name: Build & Smoke Test
         uses: ./.github/actions/build-and-smoke-test
+        with:
+          build-artifacts-name: dist
   Prepare-Release:
     name: Prepare Release
     runs-on: ubuntu-latest
@@ -36,16 +38,17 @@ jobs:
           registry-url: ${{ env.PRIVATE_REGISTRY_URL }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
-      - name: Create Tarball
-        uses: ./.github/actions/create-tarball
+      - name: Fetch Build Artifacts
+        uses: actions/download-artifact@v2
         with:
-          release: true
+          name: dist
+          path: dist
       - name: Upload Release Package Tarball
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: '${{ secrets.GHP_TOKEN }}'
           file_glob: true
           file: |
-            *.tgz
+            dist/*.pgmmv.js
           tag: '${{ github.ref }}'
           prerelease: false

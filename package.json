@@ -17,11 +17,10 @@
     "postbuild": "cavy copy dist && npm run prepend-dist-license",
     "prebuild-dev": "cavy clean dist",
     "build-dev": "cross-env NODE_ENV=development webpack --progress --color",
-    "postbuild-dev": "cavy copy dist && npm run prepend-dist-license",
+    "postbuild-dev": "npm run prepend-dist-license",
     "smoke-test": "shx echo 'Skip!'",
     "build-docs": "typedoc --out dist/docs --entryPointStrategy expand src/index.ts && shx cp LICENSE dist/docs",
     "prepend-dist-license": "node scripts/prepend-dist-license.js",
-    "create-tarball": "cavy pack dist",
     "lint": "cavy lint --all",
     "lint-fix": "cavy lint --all --fix",
     "clean": "cavy clean --all"

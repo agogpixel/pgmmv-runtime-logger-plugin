@@ -21,41 +21,6 @@
         "name": "dist",
         "dirs": ["dist"],
         "files": []
-      },
-      {
-        "name": "tarball",
-        "dirs": [],
-        "files": [".cavycache", "agogpixel-pgmmv-runtime-logger-plugin-*.tgz"]
-      }
-    ]
-  },
-  "copy": {
-    "commands": [
-      {
-        "name": "dist",
-        "src": ".",
-        "dst": "dist",
-        "redact": ["devDependencies", "scripts", "engines", "lint-staged"]
-      }
-    ]
-  },
-  "pack": {
-    "commands": [
-      {
-        "name": "dist",
-        "src": "dist",
-        "dst": ".",
-        "devPostfix": "dev-build",
-        "postUpdate": []
-      }
-    ]
-  },
-  "publish": {
-    "commands": [
-      {
-        "name": "dist",
-        "packName": "dist",
-        "preReleaseTag": "next"
       }
     ]
   }

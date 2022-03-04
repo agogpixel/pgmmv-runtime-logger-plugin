@@ -42,6 +42,7 @@ jobs:
       - name: Build & Smoke Test
         uses: ./.github/actions/build-and-smoke-test
         with:
+          build-artifacts-name: dist
           build-dev: true
   Create-Development-Release:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -57,8 +58,11 @@ jobs:
           registry-url: ${{ env.PRIVATE_REGISTRY_URL }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
-      - name: Create Tarball
-        uses: ./.github/actions/create-tarball
+      - name: Fetch Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
       - name: Create Latest Development Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         with:
@@ -67,4 +71,4 @@ jobs:
           prerelease: true
           title: Latest Development
           files: |
-            *.tgz
+            dist/*.pgmmv.js
