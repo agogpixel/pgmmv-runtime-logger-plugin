@@ -8,6 +8,7 @@ on:
   workflow_dispatch:
 env:
   PRIVATE_REGISTRY_URL: https://npm.pkg.github.com
+  GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}
   DEMO_DISPATCH_URI: /repos/agogpixel/pgmmv-runtime-logger-plugin-demo/actions/workflows/fetch-plugin-and-commit.yml/dispatches
   DEMO_DISPATCH_INPUT: '{"ref":"main","inputs":{"release-tag":"next"}}'
 jobs:
@@ -83,8 +84,5 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Update Demo Project
-        env:
-          DEMO_DISPATCH_URI: ${{ env.DEMO_DISPATCH_URI }}
-          DEMO_DISPATCH_INPUT: ${{ env.DEMO_DISPATCH_INPUT }}
         run: gh api $DEMO_DISPATCH_URI --input - <<< $DEMO_DISPATCH_INPUT
         shell: bash
