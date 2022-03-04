@@ -8,6 +8,8 @@ on:
   workflow_dispatch:
 env:
   PRIVATE_REGISTRY_URL: https://npm.pkg.github.com
+  DEMO_DISPATCH_URI: /repos/agogpixel/pgmmv-runtime-logger-plugin-demo/actions/workflows/fetch-plugin-and-commit.yml/dispatches
+  DEMO_DISPATCH_INPUT: '{"ref":"main","inputs":{"release-tag":"next"}}'
 jobs:
   Lint-And-Unit-Test:
     name: Lint & Unit Test
@@ -72,3 +74,17 @@ jobs:
           title: Latest Development
           files: |
             dist/*.pgmmv.js
+  Update-Demo-Project:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    name: Update Demo Project
+    runs-on: ubuntu-latest
+    needs: [Create-Development-Release]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Update Demo Project
+        env:
+          DEMO_DISPATCH_URI: ${{ env.DEMO_DISPATCH_URI }}
+          DEMO_DISPATCH_INPUT: ${{ env.DEMO_DISPATCH_INPUT }}
+        run: gh api $DEMO_DISPATCH_URI --input - <<< $DEMO_DISPATCH_INPUT
+        shell: bash
