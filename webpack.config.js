@@ -9,7 +9,7 @@ const package = require('./package.json');
 const nodeEnv = process.env.NODE_ENV;
 const isProd = nodeEnv === 'production';
 
-const pluginName = 'pgmmv-runtime-logger-plugin';
+const pluginName = 'runtime-logger-plugin';
 const version = isProd ? package.version : `${package.version}-dev`;
 const rootModuleName = 'Agog';
 

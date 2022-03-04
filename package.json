@@ -14,7 +14,7 @@
     "test": "jest --coverage",
     "prebuild": "cavy clean dist",
     "build": "cross-env NODE_ENV=production webpack --progress --color",
-    "postbuild": "cavy copy dist && npm run prepend-dist-license",
+    "postbuild": "npm run prepend-dist-license",
     "prebuild-dev": "cavy clean dist",
     "build-dev": "cross-env NODE_ENV=development webpack --progress --color",
     "postbuild-dev": "npm run prepend-dist-license",
