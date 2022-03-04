@@ -1,0 +1,64 @@
+{
+  "name": "@agogpixel/pgmmv-runtime-logger-plugin",
+  "description": "Runtime logger plugin for Pixel Game Maker MV.",
+  "license": "UNLICENSED",
+  "author": "kidthales <kidthales@agogpixel.com>",
+  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agogpixel/pgmmv-runtime-logger-plugin"
+  },
+  "scripts": {
+    "postinstall": "husky install",
+    "start": "jest --watch",
+    "test": "jest --coverage",
+    "prebuild": "cavy clean dist",
+    "build": "cross-env NODE_ENV=production webpack --progress --color",
+    "postbuild": "cavy copy dist && npm run prepend-dist-license",
+    "smoke-test": "shx echo 'Skip!'",
+    "build-dev": "cross-env NODE_ENV=development webpack --progress --color",
+    "build-docs": "typedoc --out dist/docs --entryPointStrategy expand src/index.ts && shx cp LICENSE dist/docs",
+    "prepend-dist-license": "node scripts/prepend-dist-license.js",
+    "create-tarball": "cavy pack dist",
+    "lint": "cavy lint --all",
+    "lint-fix": "cavy lint --all --fix",
+    "clean": "cavy clean --all"
+  },
+  "devDependencies": {
+    "@agogpixel/cavy": "~0.1.1",
+    "@agogpixel/pgmmv-fs-support": "~0.1.0",
+    "@agogpixel/pgmmv-logging-support": "~0.1.0",
+    "@agogpixel/pgmmv-plugin-support": "~0.1.0",
+    "@agogpixel/pgmmv-resource-support": "~0.1.0",
+    "@agogpixel/pgmmv-ts": "~0.1.0",
+    "@agogpixel/pgmmv-webpack-support": "~0.1.0",
+    "@types/jest": "~27.4.1",
+    "@types/node": "~14.17.34",
+    "@typescript-eslint/eslint-plugin": "~5.13.0",
+    "@typescript-eslint/parser": "~5.13.0",
+    "cross-env": "~7.0.3",
+    "eslint": "~8.10.0",
+    "eslint-config-prettier": "~8.4.0",
+    "eslint-plugin-prettier": "~4.0.0",
+    "husky": "~7.0.4",
+    "jest": "~27.5.1",
+    "lint-staged": "~12.3.4",
+    "prettier": "~2.5.1",
+    "shx": "~0.3.4",
+    "source-map-loader": "~3.0.1",
+    "ts-jest": "~27.1.3",
+    "ts-loader": "~9.2.6",
+    "typedoc": "~0.22.12",
+    "typescript": "~4.5.5",
+    "webpack": "~5.69.1",
+    "webpack-cli": "~4.9.2"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "lint-staged": {
+    "*.(js|ts)": "eslint --cache --fix",
+    "*.(json|md|yml)": "prettier --write"
+  }
+}
