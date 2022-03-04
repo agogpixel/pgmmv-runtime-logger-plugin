@@ -41,6 +41,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
       - name: Build & Smoke Test
         uses: ./.github/actions/build-and-smoke-test
+        with:
+          build-dev: true
   Create-Development-Release:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     name: Create Development Release

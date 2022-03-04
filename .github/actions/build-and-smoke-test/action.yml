@@ -5,11 +5,20 @@ inputs:
     description: Name under which to upload build artifacts.
     required: false
     default: dist
+  build-dev:
+    description: Build dev?
+    required: false
+    default: 'false'
 runs:
   using: composite
   steps:
     - name: Build
-      run: npm run build
+      run: |
+        if [[ '${{ inputs.build-dev }}' == 'true' ]]; then
+          npm run build-dev
+        else
+          npm run build
+        fi
       shell: bash
     - name: Smoke Test
       run: echo 'Skip!'

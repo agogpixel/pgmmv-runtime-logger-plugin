@@ -18,7 +18,7 @@ const distPath = resolve(__dirname, 'dist');
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
-  devtool: isProd ? false : 'eval-source-map',
+  devtool: false,
   entry: {
     [`${pluginName}-${version}`]: `${srcPath}/pgmmv-entry.ts`
   },
