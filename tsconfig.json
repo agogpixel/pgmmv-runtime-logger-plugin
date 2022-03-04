@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "strict": true
   },
-  "exclude": ["dist", "test/smoke"]
+  "exclude": ["dist"]
 }

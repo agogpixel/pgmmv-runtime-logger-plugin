@@ -10,7 +10,6 @@ module.exports = {
   testEnvironment: 'node',
   setupFiles: ['<rootDir>/test/setup.ts'],
   setupFilesAfterEnv: ['<rootDir>/test/setup-after-env.ts'],
-  testPathIgnorePatterns: ['<rootDir>/test/smoke/'],
   moduleNameMapper: {
     '\\.(md)$': '<rootDir>/test/mocks/file-mock.js'
   },

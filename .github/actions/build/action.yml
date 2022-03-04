@@ -1,5 +1,5 @@
-name: Build & Smoke Test
-description: Builds package, performs smoke tests, and archives build artifacts.
+name: Build
+description: Build & archive artifacts.
 inputs:
   build-artifacts-name:
     description: Name under which to upload build artifacts.
@@ -19,12 +19,6 @@ runs:
         else
           npm run build
         fi
-      shell: bash
-    - name: Smoke Test
-      run: echo 'Skip!'
-      shell: bash
-    - name: Build Clean
-      run: echo 'Skip!'
       shell: bash
     - name: Archive Build Artifacts
       uses: actions/upload-artifact@v2
