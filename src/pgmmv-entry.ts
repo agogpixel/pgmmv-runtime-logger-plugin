@@ -1,4 +1,4 @@
-import { createRuntimeLoggerPlugin } from './create-runtime-logger-plugin';
+import { createRuntimeLoggerPlugin } from './create-runtime-logger-plugin.function';
 
 const plugin = createRuntimeLoggerPlugin();
 

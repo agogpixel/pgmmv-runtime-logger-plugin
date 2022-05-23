@@ -7,7 +7,6 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+'
       - 'v[0-9]+.[0-9]+.[0-9]+\+*'
 env:
-  PRIVATE_REGISTRY_URL: https://npm.pkg.github.com
   GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}
   DEMO_DISPATCH_URI: /repos/agogpixel/pgmmv-runtime-logger-plugin-demo/actions/workflows/fetch-plugin-and-commit.yml/dispatches
   DEMO_DISPATCH_INPUT: '{"ref":"main","inputs":{"release-tag":"${{ github.ref_name }}"}}'
@@ -20,10 +19,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Dependencies
         uses: ./.github/actions/setup-dependencies
-        with:
-          registry-url: ${{ env.PRIVATE_REGISTRY_URL }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
       - name: Build
         uses: ./.github/actions/build
         with:
@@ -37,10 +32,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Setup Dependencies
         uses: ./.github/actions/setup-dependencies
-        with:
-          registry-url: ${{ env.PRIVATE_REGISTRY_URL }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GHP_TOKEN }}
       - name: Fetch Build Artifacts
         uses: actions/download-artifact@v2
         with:
