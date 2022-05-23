@@ -1,71 +1,117 @@
-import { mixinFileManager } from '@agogpixel/pgmmv-fs-support/src/mixin-file-manager';
-import { mixinFileReader } from '@agogpixel/pgmmv-fs-support/src/mixin-file-reader';
-import { mixinFileWriter } from '@agogpixel/pgmmv-fs-support/src/mixin-file-writer';
-import type { FileSystemOperationCallback } from '@agogpixel/pgmmv-fs-support/src/operation/callback';
+/**
+ * Exports a log files manager instance factory.
+ *
+ * @module
+ */
+import { mixinFileManager } from '@agogpixel/pgmmv-fs-support/src/mixin-file-manager.function';
+import { mixinFileReader } from '@agogpixel/pgmmv-fs-support/src/mixin-file-reader.function';
+import { mixinFileWriter } from '@agogpixel/pgmmv-fs-support/src/mixin-file-writer.function';
+import type { FileSystemOperationCallback } from '@agogpixel/pgmmv-fs-support/src/file-system-module/operations/file-system-operation-callback.type';
 
-import { getUnixTimestamp } from '@agogpixel/pgmmv-resource-support/src/time/get-unix-timestamp';
-import { pollWithInterval } from '@agogpixel/pgmmv-resource-support/src/time/poll-with-interval';
+import { getUnixTimestamp } from '@agogpixel/pgmmv-resource-support/src/time/get-unix-timestamp.function';
+import { pollWithInterval } from '@agogpixel/pgmmv-resource-support/src/time/poll-with-interval.function';
 
-import type { LogFilesManager } from './log-files-manager';
-import type { LogFilesManagerConfig } from './log-files-manager-config';
+import type { LogFilesManagerConfig } from './log-files-manager-config.interface';
+import type { LogFilesManager } from './log-files-manager.interface';
+
+////////////////////////////////////////////////////////////////////////////////
+// Public Static Properties
+////////////////////////////////////////////////////////////////////////////////
+
+// None.
+
+////////////////////////////////////////////////////////////////////////////////
+// Private Static Properties
+////////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Target log filename.
  *
+ * @private
+ * @static
  */
 const targetLogFile = 'current.log';
 
+////////////////////////////////////////////////////////////////////////////////
+// Public Static Methods
+////////////////////////////////////////////////////////////////////////////////
+
 /**
+ * Create log files manager.
  *
- * @param config
- * @returns
+ * @param config Log files manager configuration.
+ * @returns Log file manager instance.
+ * @public
+ * @static
  */
-export function createLogFileManager(config: LogFilesManagerConfig) {
-  /**
-   *
-   */
+export function createLogFilesManager(config: LogFilesManagerConfig) {
+  // Public API container.
   const self = {} as LogFilesManager;
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Properties
+  //////////////////////////////////////////////////////////////////////////////
+
   /**
+   * File system API.
    *
+   * @private
    */
   const fsApi = mixinFileWriter(mixinFileReader(mixinFileManager({})));
 
   /**
+   * Log files directory.
    *
+   * @private
    */
   let logFilesDirectory = config.logFilesDirectory;
 
   /**
+   * Write buffer.
    *
+   * @private
    */
   let buffer: string[] | undefined;
 
   /**
+   * Log batch state date.
    *
+   * @private
    */
   let batchStart: Date;
 
   /**
+   * Write buffer size.
    *
+   * @private
    */
   let bufferSize: number;
 
   /**
+   * Last write unix timestamp.
    *
+   * @private
    */
   let lastWriteTime = getUnixTimestamp();
 
   /**
+   * Is writing flag.
    *
+   * @private
    */
   let isWriting = false;
 
+  //////////////////////////////////////////////////////////////////////////////
+  // Private Methods
+  //////////////////////////////////////////////////////////////////////////////
+
   /**
+   * Create log files directory path.
    *
-   * @param basePath
-   * @param relDirPath
-   * @param callback
-   * @returns
+   * @param basePath Base path.
+   * @param relDirPath Relative directory path.
+   * @param callback File system operation callback.
+   * @private
    */
   function createLogFilesDirectoryPath(basePath: string, relDirPath: string, callback: FileSystemOperationCallback) {
     if (!relDirPath) {
@@ -91,6 +137,12 @@ export function createLogFileManager(config: LogFilesManagerConfig) {
     });
   }
 
+  /**
+   * Write to buffer.
+   *
+   * @param data Data to write.
+   * @private
+   */
   function writeToBuffer(data: string) {
     if (!buffer) {
       buffer = [];
@@ -106,6 +158,13 @@ export function createLogFileManager(config: LogFilesManagerConfig) {
     }
   }
 
+  /**
+   * Flush data in write buffer to file.
+   *
+   * @param buffer Buffer containing data to flush.
+   * @param path Path to file.
+   * @private
+   */
   function flushToFile(buffer: string[], path: string) {
     if (isWriting) {
       return;
@@ -182,30 +241,38 @@ export function createLogFileManager(config: LogFilesManagerConfig) {
     4000
   );
 
-  /**
-   *
-   * @returns
-   */
-  self.getLogFilesDirectory = function getLogFilesDirectory() {
+  //////////////////////////////////////////////////////////////////////////////
+  // Protected Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  // None.
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Protected Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+  // None.
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Properties
+  //////////////////////////////////////////////////////////////////////////////
+
+  // None.
+
+  //////////////////////////////////////////////////////////////////////////////
+  // Public Methods
+  //////////////////////////////////////////////////////////////////////////////
+
+  self.getLogFilesDirectory = function () {
     return logFilesDirectory;
   };
 
-  /**
-   *
-   * @param relDirPath
-   */
-  self.setLogFilesDirectory = function setLogFilesDirectory(relDirPath) {
+  self.setLogFilesDirectory = function (relDirPath) {
     logFilesDirectory = relDirPath;
     return self;
   };
 
-  /**
-   *
-   * @param data
-   * @param relDirPath
-   * @returns
-   */
-  self.writeToLogFiles = function writeToLogFiles(data) {
+  self.writeToLogFiles = function (data) {
     const logFilesDirectoryPath = `${Agtk.settings.projectPath}${logFilesDirectory}`;
 
     if (!fsApi.isAbsolutePath(logFilesDirectoryPath)) {
@@ -225,5 +292,12 @@ export function createLogFileManager(config: LogFilesManagerConfig) {
     writeToBuffer(data);
   };
 
+  // Log files manager ready!
   return self;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Private Static Methods
+////////////////////////////////////////////////////////////////////////////////
+
+// None.

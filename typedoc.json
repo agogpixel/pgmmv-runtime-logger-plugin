@@ -1,0 +1,13 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": [
+    "./src/log-files-manager/log-files-manager-config.interface.ts",
+    "./src/log-files-manager",
+    "./src/parameters",
+    "./src/create-runtime-logger-plugin.function.ts",
+    "./src/runtime-logger-plugin-internal-data.type.ts",
+    "./src/runtime-logger-plugin-protected-api.interface.ts",
+    "./src/runtime-logger.type.ts"
+  ],
+  "out": "dist/docs"
+}

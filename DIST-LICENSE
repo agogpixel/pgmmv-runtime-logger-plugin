@@ -1,6 +1,9 @@
 /**
- * Runtime Logger Plugin for Pixel Game Maker MV.
- * Copyright 2022 AgogPixel - All Rights Reserved.
- * Implemented by kidthales <kidthales@agogpixel.com>
- * This file is released under CC BY-ND 4.0 license: https://creativecommons.org/licenses/by-nd/4.0/
+ * Copyright 2022 Tristan Bonsor - All Rights Reserved.
+ * 
+ * This file, and its originating project files, are released under the MIT license: https://github.com/agogpixel/pgmmv-runtime-logger-plugin/blob/main/LICENSE
+ * 
+ * For more information, please see:
+ *  - Github Repository: https://github.com/agogpixel/pgmmv-runtime-logger-input-plugin
+ *  - Published Builds & Usage: https://agogpixel.itch.io/pgmmv-runtime-logger-plugin
  */
